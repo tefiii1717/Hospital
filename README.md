@@ -20,7 +20,14 @@ Diseño y Arquitectura de Software - Universidad de La Sabana.
 - Cola asíncrona con Bull/Redis
 - Dockerfile y docker-compose.yml listos
 
-### Persona 2 — Servicios del dominio 🔄 Pendiente
+### Persona 2 — Servicios del dominio ✅
+- CitaService.js con RN5 y RN6
+- HistoriaClinicaService.js
+- AdmisionService.js con RN7
+- AltaService.js
+- RecetaService.js con RN9
+- RN10: todos los servicios se comunican solo a través de interfaces, nunca acceden a repositorios de otros módulos directamente
+  
 ### Persona 3 — API REST y seguridad 🔄 Pendiente
 
 ---
@@ -186,7 +193,8 @@ Ya está completo.
 
 ---
 
-### Persona 2 — Servicios del dominio
+### Persona 2 — Servicios del dominio ✅
+Ya está completo.
 
 **Paso 1 — Crea las carpetas:**
 ```bash
