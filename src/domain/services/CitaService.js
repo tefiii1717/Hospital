@@ -63,3 +63,5 @@ class CitaService {
         return cita;
   }
 }
+
+module.exports = new CitaService();

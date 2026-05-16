@@ -23,3 +23,4 @@ class AltaService {
         return alta;
     }
 }
+module.exports = new AltaService();

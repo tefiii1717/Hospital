@@ -39,3 +39,4 @@ class HistoriaClinicaService{
         });
     }
 }
+module.exports = new HistoriaClinicaService();

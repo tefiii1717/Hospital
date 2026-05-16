@@ -22,3 +22,4 @@ class RecetaService {
         });
     }
 }
+module.exports = new RecetaService();

@@ -32,3 +32,4 @@ class AdmisionService {
         return ingreso;
     }
 }
+module.exports = new AdmisionService();
