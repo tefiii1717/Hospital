@@ -1,4 +1,4 @@
-const {HistoriaClinica, NotaMedica, Paciente} = require('../../infrastructure/database/models');
+const { HistoriaClinica, NotaMedica, Paciente, Receta } = require('../../infrastructure/database/models');
 
 class HistoriaClinicaService{
     async crearHistoriaClinica(pacienteId) {
@@ -33,10 +33,13 @@ class HistoriaClinicaService{
     }
 
     async buscarPorPaciente(pacienteId) {
-        return await HistoriaClinica.findOne({
-            where: {PacienteId: pacienteId},
-            include: ['NotaMedicas', 'Recetas']
-        });
-    }
+    return await HistoriaClinica.findOne({
+        where: { PacienteId: pacienteId },
+        include: [
+            { model: NotaMedica },
+            { model: Receta }
+        ]
+    });
+}
 }
 module.exports = new HistoriaClinicaService();
