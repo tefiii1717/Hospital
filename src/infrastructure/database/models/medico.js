@@ -18,14 +18,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Medico.init({
-    nombre: DataTypes.STRING,
-    apellido: DataTypes.STRING,
-    especialidad: DataTypes.STRING,
-    cedula: DataTypes.STRING,
-    email: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Medico',
-  });
+  nombre: DataTypes.STRING,
+  apellido: DataTypes.STRING,
+  especialidad: DataTypes.STRING,
+  cedula: DataTypes.STRING,
+  email: DataTypes.STRING,
+  password: DataTypes.STRING,
+  rol: DataTypes.ENUM('Medico', 'Enfermero', 'Admin')
+}, {
+  sequelize,
+  modelName: 'Medico',
+});
   return Medico;
 };
