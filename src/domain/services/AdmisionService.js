@@ -1,35 +1,39 @@
-const {Ingreso, Cama, Paciente} = require('../../infrastructure/database/models');
+const { Ingreso, Cama, Paciente } = require('../../infrastructure/database/models');
 
 class AdmisionService {
-    async admitirPaciente(pacienteId, camaId, motivoIngreso) {
-        const paciente = await Paciente.findByPk(pacienteId);
-        if (!paciente) {
-            throw new Error('El paciente no existe');
-        }
+  async admitirPaciente(pacienteId, motivoIngreso, diasHospitalizacion) {
+    const paciente = await Paciente.findByPk(pacienteId);
+    if (!paciente) throw new Error('El paciente no existe');
 
-        const ingresoActivo = await Ingreso.findOne({where: {PacienteId: pacienteId, estado: 'activo'}});
-        if (ingresoActivo) {
-            throw new Error('El paciente ya tiene un ingreso activo.');
-        }
+    const ingresoActivo = await Ingreso.findOne({
+      where: { PacienteId: pacienteId, estado: 'activo' }
+    });
+    if (ingresoActivo) throw new Error('RN7: El paciente ya tiene un ingreso activo.');
 
-        const cama = await Cama.findByPk(camaId);
-        if (!cama) {
-            throw new Error('La cama no existe.');
-        }
-        if (cama.estado !== 'disponible') {
-            throw new Error('RN8: La cama no está disponible.');
-        }
+    const cama = await Cama.findOne({ where: { estado: 'disponible' } });
+    if (!cama) throw new Error('RN8: No hay camas disponibles en este momento.');
 
-        const ingreso = await Ingreso.create({
-            PacienteId: pacienteId,
-            CamaId: camaId,
-            motivoIngreso: motivoIngreso,
-            fechaIngreso: new Date(),
-            estado: 'activo'
-        });
+    const fechaIngreso = new Date();
+    const fechaAlta = new Date();
+    fechaAlta.setDate(fechaAlta.getDate() + parseInt(diasHospitalizacion));
 
-        await cama.update({estado: 'ocupada'});
-        return ingreso;
-    }
+    const ingreso = await Ingreso.create({
+      PacienteId: pacienteId,
+      CamaId: cama.id,
+      motivoIngreso,
+      fechaIngreso,
+      estado: 'activo'
+    });
+
+    await cama.update({ estado: 'ocupada' });
+
+    return {
+      ...ingreso.dataValues,
+      cama: cama.numero,
+      piso: cama.piso,
+      fechaAltaEstimada: fechaAlta
+    };
+  }
 }
+
 module.exports = new AdmisionService();

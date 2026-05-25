@@ -27,7 +27,7 @@ class HistoriaClinicaService{
         return await NotaMedica.create({
             HistoriaClinicaId: historiaClinicaId,
             MedicoId: medicoId,
-            nota: nota,
+            contenido: nota,
             fecha: new Date()
         });
     }

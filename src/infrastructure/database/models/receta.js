@@ -16,14 +16,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Receta.init({
-    medicamento: DataTypes.STRING,
-    dosis: DataTypes.STRING,
-    indicaciones: DataTypes.TEXT,
-    HistoriaClinicaId: DataTypes.INTEGER,
-    MedicoId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Receta',
-  });
+  medicamento: DataTypes.STRING,
+  dosis: DataTypes.STRING,
+  indicaciones: DataTypes.TEXT,
+  HistoriaClinicaId: DataTypes.INTEGER,
+  MedicoId: DataTypes.INTEGER
+}, {
+  sequelize,
+  modelName: 'Receta',
+  tableName: 'Receta'
+});
   return Receta;
 };

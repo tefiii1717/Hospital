@@ -27,4 +27,17 @@ const recetasPorHistoria = async (req, res) => {
   }
 };
 
-module.exports = { crearReceta, recetasPorHistoria };
+const eliminarReceta = async (req, res) => {
+  try {
+    const { Receta } = require('../../infrastructure/database/models');
+    const receta = await Receta.findByPk(req.params.id);
+    if (!receta) return res.status(404).json({ message: 'Receta no encontrada.' });
+    await receta.destroy();
+    return res.json({ message: 'Receta eliminada correctamente.' });
+} catch (error) {
+  console.error('Error eliminarReceta:', error.message);
+  return res.status(500).json({ message: error.message });
+}
+};
+
+module.exports = { crearReceta, recetasPorHistoria, eliminarReceta };
