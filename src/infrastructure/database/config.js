@@ -1,9 +1,9 @@
 module.exports = {
   development: {
     username: "postgres",
-    password: "1234",
+    password: process.env.DB_PASSWORD || "1234",
     database: "hospital_db",
-    host: "127.0.0.1",
+    host: process.env.DB_HOST || "127.0.0.1",  // ← cambia a esto
     dialect: "postgres"
   }
 };

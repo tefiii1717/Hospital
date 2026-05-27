@@ -1,13 +1,13 @@
-version: '3.8'
-
 services:
   app:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
       - NODE_ENV=development
-      - PORT=3000
+      - DB_HOST=db
     depends_on:
       - db
       - redis
@@ -16,7 +16,7 @@ services:
     image: postgres:17
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: tu_password
+      POSTGRES_PASSWORD: 1234
       POSTGRES_DB: hospital_db
     ports:
       - "5432:5432"
